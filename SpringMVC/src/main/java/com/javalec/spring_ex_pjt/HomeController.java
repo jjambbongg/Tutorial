@@ -8,8 +8,10 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.jmx.export.annotation.ManagedMetric;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,7 +22,6 @@ import com.javalec.spring_ex_pjt.member.Member;
 /**
  * Handles requests for the application home page.
  */
-@Controller
 public class HomeController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
@@ -41,6 +42,28 @@ public class HomeController {
 		return "home";
 	}
 	
+	@RequestMapping("/index")
+	public String index() {
+		return "index";
+	}
+	
+	@RequestMapping("/memberViewOrNot")
+	public String memberViewOrNot(HttpServletRequest httpServletRequest, Model model) {
+		String id = httpServletRequest.getParameter("id");
+		if(id==null || id=="") {
+			return "redirect:noMember";
+		}	
+		return "redirect:okMember";
+	}
+	
+	@RequestMapping("/okMember")
+	public String okMember(@ModelAttribute("memInfo") Member member) {
+		return "memberview";
+	}
+	@RequestMapping("/noMember")
+	public String noMemboer() {
+		return "nomember";
+	}
 	
 	
 	/*@RequestMapping("/board/view")
