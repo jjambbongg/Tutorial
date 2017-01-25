@@ -63,7 +63,7 @@ public class BDao {
 	}
 	
 	public void delete(final String bId) {
-		String query = "DELETE FROM mvc_board WHERE bId="+bId;
+		String query = "DELETE FROM mvc_board WHERE bId=?";
 		template.update(query, new PreparedStatementSetter() {
 			@Override
 			public void setValues(PreparedStatement ps) throws SQLException {
@@ -107,7 +107,7 @@ public class BDao {
 	
 	public BDto contentView(String bId) {
 		upHit(bId);
-		String query = "SELECT bName, bTitle, bContent, bDate, bHit, bGroup, bStep, bIndent FROM mvc_board WHERE bId="+bId;
+		String query = "SELECT bId, bName, bTitle, bContent, bDate, bHit, bGroup, bStep, bIndent FROM mvc_board WHERE bId="+bId;
 		return template.queryForObject(query, new BeanPropertyRowMapper<BDto>(BDto.class));
 	}
 	
