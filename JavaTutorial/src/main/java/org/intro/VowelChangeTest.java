@@ -1,65 +1,51 @@
 package org.intro;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.Scanner;
 
 public class VowelChangeTest {
 
-	public String getResult(String input) {
-		
-		boolean isV = false;
-		int idxR = 0;
-		int idxL = 0;
-		String rtn = "";
-		char compCharArry[] = {'a','e','i','o','u'};
-		char[] inputCharArry = input.toCharArray();
-		
-		if(input!=null) {
-			idxL = input.length()-1;
-		}
-		
-		for(int i=0; i<input.length(); i++) {
-			input.charAt(i);
-		}
-		while(idxR<idxL) {
-		
-		for(char c:inputCharArry) {
-			for(char compC:compCharArry) {
-				if(c==compC) {
-					isV = true;
-				} else {
-				
-				}
+	public static boolean isVowel(char input) {		
+		char vCharArry[] = {'a','e','i','o','u'};
+		for(char c:vCharArry) {
+			if(input==c) {
+				return true;
 			}
 		}
-		
-		}
-		
-		
-		System.out.println(rtn);
-		return rtn;
+		return false;
 	}
-	
 	
 	
 	public static void main(String[] args) {
-		try {
-			
-			
-			VowelChangeTest vowl = new VowelChangeTest();
-			vowl.getResult("apple");
-			
-			for(String e:args) {
-				System.out.println(e);
+	
+		Scanner sc = new Scanner(System.in);
+		String sampleStr = sc.nextLine();
+		sc.close();
+		//String sampleStr = "apple";
+		int strLength = 0;
+		int hIdx = 0;
+		int tIdx = 0;
+		strLength = sampleStr.length() - 1;
+		tIdx = strLength;
+		char [] charArry = sampleStr.toCharArray();
+		
+		while(hIdx<tIdx) {
+			if(isVowel(charArry[hIdx]) && isVowel(charArry[tIdx])) {
+				char charTemp = charArry[hIdx];
+				charArry[hIdx] = charArry[tIdx];
+				charArry[tIdx] = charTemp;
+				System.out.println(String.valueOf(charArry));
+				hIdx++;
+				tIdx--;
+				//break;
+			} else if(!(isVowel(charArry[hIdx]))) {
+				hIdx++;
+			} else if(!(isVowel(charArry[tIdx]))) {
+				tIdx--;
 			}
-			
-		} catch(Exception e) {
-			System.out.println(e.getMessage());
-			System.out.println(e.toString());
-			e.printStackTrace();
 		}
 		
 	}
+	
+	
 	
 }
